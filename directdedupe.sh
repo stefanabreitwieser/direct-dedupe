@@ -1,14 +1,9 @@
 #!/bin/sh
 
-#DirectDedupe is a shell script that creates a spreadsheet listing the checksums for directories. This spreadsheet can be used (with conditional formatting in Excel for example) to identify and manually delete duplicate directories.
+#direct-dedupe is a shell script that creates a spreadsheet listing the checksums for directories. This spreadsheet can be used (with conditional formatting in Excel for example) to identify and manually delete duplicate directories.
 
 #The MIT License (MIT)
 #Copyright (c) 2018 Stefana Breitwieser
-
-# Known issue: Subdirectory names cannot use spaces; use command line tool detox to remove spaces. 
-# Known issue: If any of the subcommands return an error rather than a value, the different columns may become unaligned in the spreadsheet.
-# Known issue: If a directory contains and only contains one subdirectory, the directory and subdirectory will have the same checksum and appear as duplicates.
-
 
 #creates directory if one does not already exist
 if [ -d /home/bcadmin/Desktop/dedupe ]
