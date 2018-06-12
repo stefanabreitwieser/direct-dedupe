@@ -39,5 +39,5 @@ paste -d "," /home/bcadmin/Desktop/dedupe/filesizes.csv /home/bcadmin/Desktop/de
 #inserts header into spreadsheet
 ( echo "filesize,filepath,checksum" ; cat /home/bcadmin/Desktop/dedupe/dedupes.csv ) > /home/bcadmin/Desktop/dedupe/dedupe.csv && rm /home/bcadmin/Desktop/dedupe/dedupes.csv 
 
-echo "Process complete. Find the completed spreadsheet in /home/bcadmin/dedupe."
+echo "Process complete. Find the completed spreadsheet in /home/bcadmin/Desktop/dedupe."
 exit
