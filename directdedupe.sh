@@ -5,20 +5,30 @@
 #The MIT License (MIT)
 #Copyright (c) 2018 Stefana Breitwieser
 
+#input source directory and remove quotes if they exist
+echo "Source directory?"
+read srcinput
+src=$(echo $srcinput | tr -d \')
+
+#input destination directory and remove quotes if they exist
+echo "Destination directory?"
+read destinput
+dest=$(echo $destinput | tr -d \')
+
 #creates directory if one does not already exist
-if [ -d /home/bcadmin/Desktop/dedupe ]
+if [ -d $dest/dedupe ]
 	then
-		echo "Cannot overwrite existing directory. Delete /home/bcadmin/Desktop/dedupe or wait until the current dedupe command finishes."
+		echo "Cannot overwrite existing dedupe directory."
 		exit
 else 
-	mkdir /home/bcadmin/Desktop/dedupe
+	mkdir $dest/dedupe
 fi
 
 #prints CSV of file paths and file sizes
 echo "Printing list of directories with their file sizes."
-for D in $(find . -type d)
+for D in $(find $src -type d)
 do 
-	du -sh $D >> /home/bcadmin/Desktop/dedupe/filesizes.csv;
+	du -sh $D >> $dest/dedupe/filesizes.csv;
 done
 echo "List complete.
 "
@@ -26,18 +36,18 @@ echo "List complete.
 #prints CSV of checksums of subdirectories
 echo "Printing list of checksums."
 echo "This might take some time based on the size of the working directory and number of subdirectories -- please be patient!"
-for D in $(find . -type d)
-do find $D -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum >> /home/bcadmin/Desktop/dedupe/checksums.csv;
+for D in $(find $src -type d)
+do find $D -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum >> $dest/dedupe/checksums.csv;
 done
 echo "List complete.
 "
 
 #concats spreadsheets
 echo "Building final spreadsheet."
-paste -d "," /home/bcadmin/Desktop/dedupe/filesizes.csv /home/bcadmin/Desktop/dedupe/checksums.csv >> /home/bcadmin/Desktop/dedupe/dedupes.csv && rm /home/bcadmin/Desktop/dedupe/filesizes.csv && rm /home/bcadmin/Desktop/dedupe/checksums.csv 
+paste -d "," $dest/dedupe/filesizes.csv $dest/dedupe/checksums.csv >> $dest/dedupe/dedupes.csv && rm $dest/dedupe/filesizes.csv && rm $dest/dedupe/checksums.csv 
 
 #inserts header into spreadsheet
-( echo "filesize,filepath,checksum" ; cat /home/bcadmin/Desktop/dedupe/dedupes.csv ) > /home/bcadmin/Desktop/dedupe/dedupe.csv && rm /home/bcadmin/Desktop/dedupe/dedupes.csv 
+( echo "filesize,filepath,checksum" ; cat $dest/dedupe/dedupes.csv ) > $dest/dedupe/dedupe.csv && rm $dest/dedupe/dedupes.csv 
 
-echo "Process complete. Find the completed spreadsheet in /home/bcadmin/Desktop/dedupe."
+echo "Process complete. Find the completed spreadsheet in the dedupe folder."
 exit
