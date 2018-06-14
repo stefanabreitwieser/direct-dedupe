@@ -27,8 +27,7 @@ fi
 #prints CSV of file paths and file sizes
 echo "Printing list of directories with their file sizes."
 for D in $(find $src -type d)
-do 
-	du -sh $D >> $dest/dedupe/filesizes.csv;
+	do du -sh $D >> $dest/dedupe/filesizes.csv;
 done
 echo "List complete.
 "
@@ -37,7 +36,7 @@ echo "List complete.
 echo "Printing list of checksums."
 echo "This might take some time based on the size of the working directory and number of subdirectories -- please be patient!"
 for D in $(find $src -type d)
-do find $D -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum >> $dest/dedupe/checksums.csv;
+	do find $D -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum >> $dest/dedupe/checksums.csv;
 done
 echo "List complete.
 "
