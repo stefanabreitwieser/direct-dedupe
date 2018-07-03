@@ -7,7 +7,7 @@ Run the shell script in the command line. You will be prompted for:
 * A source directory -- the top-level directory containing all directories you'd like to run checksums for.
 * A destination directory -- a directory titled "dedupe" will be created here, and the final spreadsheet will appear in the dedupe folder. The script will fail if there is already a directory title "dedupe" in that location.
 
-The resulting spreadsheet can be used with conditional formatting in Microsoft Word to highlight duplicate directories.
+The resulting spreadsheet can be used with conditional formatting in Microsoft Excel to highlight duplicate directories.
 
 ## Known issues
 * Subdirectory names cannot use spaces; use command line tool [detox](http://detox.sourceforge.net/) to remove spaces. 
